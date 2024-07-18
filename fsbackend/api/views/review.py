@@ -6,7 +6,7 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 
 from api.models import Review, User
-from api.serializers.review import ReviewSerializer, ReviewUpdateSerializer
+from api.serializers.review import ReviewSerializer, ReviewUpdateSerializer, ReviewCreateSerializer
 
 
 class ReviewViewSet(ModelViewSet):
@@ -19,6 +19,8 @@ class ReviewViewSet(ModelViewSet):
         if self.action == 'update':
             # Для того, чтобы обновлять можно было только определенные поля
             return ReviewUpdateSerializer
+        elif self.action == 'create':
+            return ReviewCreateSerializer
         else:
             return ReviewSerializer
 
@@ -53,7 +55,6 @@ class ReviewViewSet(ModelViewSet):
         
         if request.data.get('user_to') == instance.user_from.id:
             raise ValidationError("Invalid value for user_to")
-
                
         return super().update(request, *args, **kwargs)
 

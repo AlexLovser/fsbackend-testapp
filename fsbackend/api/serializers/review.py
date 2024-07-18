@@ -16,6 +16,17 @@ class ReviewSerializer(ModelSerializer):
         fields = '__all__'
 
 
+class ReviewCreateSerializer(ModelSerializer):
+    """
+        Сериализатор для отзывов
+    """
+
+    class Meta:
+        model = Review
+        fields = '__all__'
+
+
+
 class ReviewUpdateSerializer(ModelSerializer):
     """
         Сериализатор для редактированя отзывов
