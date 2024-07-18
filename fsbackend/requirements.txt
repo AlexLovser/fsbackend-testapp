@@ -1,0 +1,9 @@
+djangorestframework
+markdown
+django-filter
+django-cors-headers
+drf-spectacular
+drf_spectacular_sidecar
+psycopg2-binary
+requests
+python-dotenv

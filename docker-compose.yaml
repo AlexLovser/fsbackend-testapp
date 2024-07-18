@@ -1,0 +1,31 @@
+services:
+  postgres:
+    image: postgres:13.3
+    environment:
+      POSTGRES_DB: "fsbackend_db"
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "admin"
+    # container_name: "database"
+    ports:
+      - "1234:1234"
+    command: -p 1234
+    volumes:
+      - 'postgres_data:/var/lib/postgresql/data'
+
+  server:
+    restart: unless-stopped
+    build:
+      context: ./fsbackend
+    ports:
+      - '8080:8080'
+    entrypoint: ["sh", "./entrypoint.sh"]
+    command: python manage.py runserver 0.0.0.0:8080
+    volumes:
+      - ./fsbackend/:/app/:cached
+
+    depends_on:
+      - postgres
+
+
+volumes:
+  postgres_data: 
